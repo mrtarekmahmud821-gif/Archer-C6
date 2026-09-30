@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bandwidth Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f4f4f4; }
+        input, button { padding: 8px; margin: 5px 0; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Raspberry Pi Bandwidth Controller</h1>
+    <p>Connected Devices:</p>
+
+    <table>
+        <tr>
+            <th>IP Address</th>
+            <th>MAC</th>
+            <th>Action</th>
+        </tr>
+        {% for d in devices %}
+        <tr>
+            <td>{{ d.ip }}</td>
+            <td>{{ d.mac }}</td>
+            <td>
+                <form method="post" action="/limit" style="display:inline;">
+                    <input type="hidden" name="ip" value="{{ d.ip }}">
+                    <input type="number" name="speed" placeholder="kbps" style="width:90px;">
+                    <button type="submit">Set Limit</button>
+                </form>
+                <form method="post" action="/block" style="display:inline;">
+                    <input type="hidden" name="ip" value="{{ d.ip }}">
+                    <button type="submit">Block</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
