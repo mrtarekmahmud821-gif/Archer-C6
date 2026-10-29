@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#11101b">
+  <title>Bird Rush Admin</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      margin: 0; padding: 20px; background: #11101b; color: #fff;
+      font-family: Arial, sans-serif; max-width: 720px; margin-inline: auto;
+    }
+    h1 { font-size: 24px; }
+    .muted { color: #aaa5bb; font-size: 13px; }
+    .card {
+      background: #211e30; border: 1px solid #ffffff14;
+      padding: 16px; border-radius: 16px; margin: 12px 0;
+    }
+    button {
+      border: 0; border-radius: 9px; padding: 11px 14px;
+      font-weight: bold; cursor: pointer; margin: 6px 6px 0 0;
+    }
+    .approve { background: #a7f3d0; color: #10271f; }
+    .reject { background: #ff6b91; color: #280b17; }
+    .refresh { background: #343047; color: #fff; }
+    #status { white-space: pre-wrap; font-size: 13px; color: #ff9fc1; }
+    input { width: 100%; box-sizing: border-box; padding: 11px;
+      border-radius: 8px; border: 1px solid #ffffff20;
+      background: #151321; color: white; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Bird Rush Admin</h1>
+  <p class="muted">Withdrawal review dashboard</p>
+  <button class="refresh" id="refresh">Refresh requests</button>
+  <p id="status">Connecting to backend…</p>
+  <section id="requests"></section>
+  <script src="admin.js"></script>
+</body>
+</html>
