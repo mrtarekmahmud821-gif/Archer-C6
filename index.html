@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11101b">
+  <title>Bird Rush — Telegram Mini App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>➤</span></div>
+        <div><div class="brand-name">BIRD<span>RUSH</span></div><div class="brand-sub">PLAY • EARN • REPEAT</div></div>
+      </div>
+      <button class="balance-pill" id="headerBalance" aria-label="Your points"><span class="coin">✦</span><span id="balanceTop">0</span></button>
+    </header>
+
+    <main>
+      <section class="page active" id="page-home">
+        <div class="welcome-row">
+          <div><p class="eyebrow">ARCADE CHALLENGE</p><h1>Ready, aim,<br><span class="gradient-text">fly!</span></h1></div>
+          <div class="streak"><span>⚡</span><strong id="streakValue">0</strong><small>HITS</small></div>
+        </div>
+        <div class="game-card">
+          <div class="game-head"><div><span class="live-dot"></span><span class="muted">LIVE ROUND</span></div><div class="round-chip">ROUND <b id="roundNo">1</b></div></div>
+          <div class="game-stats"><div><small>ROUND HITS</small><strong id="hitsValue">0 <i>/ 100</i></strong></div><div class="progress-wrap"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><small id="progressLabel">0% COMPLETE</small></div></div>
+          <div class="game-stage" id="gameStage">
+            <div class="stage-stars"></div>
+            <div class="stage-hint" id="stageHint">MOVE THE CANNON • TAP TO SHOOT</div>
+            <canvas id="gameCanvas" aria-label="Bird Rush shooting game"></canvas>
+            <div class="game-overlay" id="gameOverlay">
+              <div class="overlay-icon">➤</div><h2>Start your round</h2><p>Hit 100 flying targets to earn 10 points.</p><button class="primary-btn" id="startGame">START GAME <span>↗</span></button>
+            </div>
+            <div class="game-toast" id="gameToast"></div>
+          </div>
+          <div class="game-controls"><div class="control-note"><span class="control-icon">◀</span><span>Drag to move<br><b>Tap to shoot</b></span></div><button class="shoot-btn" id="shootBtn" disabled><span>✦</span> SHOOT</button></div>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">MORE WAYS TO EARN</p><h2>Quick rewards</h2></div><button class="text-btn" data-nav="tasks">View all ↗</button></div>
+        <div class="quick-grid">
+          <button class="quick-card" data-nav="tasks"><span class="quick-icon pink">▶</span><span><b>Watch an ad</b><small>Claim a reward</small></span><span class="chevron">›</span></button>
+          <button class="quick-card" data-nav="refer"><span class="quick-icon gold">♧</span><span><b>Invite friends</b><small>+100 points each</small></span><span class="chevron">›</span></button>
+        </div>
+        <p class="disclaimer">Points are in-app rewards. No cash value unless a redemption program is officially enabled.</p>
+      </section>
+
+      <section class="page" id="page-tasks">
+        <div class="page-intro"><p class="eyebrow">EARN MORE</p><h1>Tasks & <span class="gradient-text">rewards</span></h1><p>Complete eligible activities to collect points.</p></div>
+        <div class="balance-banner"><div><small>YOUR POINTS BALANCE</small><strong><span class="coin">✦</span> <span id="taskBalance">0</span></strong></div><div class="banner-symbol">✧</div></div>
+        <div class="section-heading"><div><p class="eyebrow">AVAILABLE NOW</p><h2>Daily activities</h2></div></div>
+        <article class="task-card"><div class="task-icon ad-icon">▶</div><div class="task-copy"><b>Watch a rewarded ad</b><small>Watch the full ad to qualify</small><span class="reward-tag">Reward set by admin</span></div><button class="small-primary" id="watchAdBtn">Watch</button></article>
+        <article class="task-card"><div class="task-icon daily-icon">☀</div><div class="task-copy"><b>Daily check-in</b><small>Come back each day</small><span class="reward-tag">Daily reward</span></div><button class="small-primary" id="checkinBtn">Claim</button></article>
+        <div class="notice"><span>ⓘ</span><p>Rewards are confirmed by the server. Closing an ad early or repeating a task should not grant extra points.</p></div>
+      </section>
+
+      <section class="page" id="page-refer">
+        <div class="page-intro"><p class="eyebrow">GROW TOGETHER</p><h1>Invite & <span class="gradient-text">earn</span></h1><p>Your friends make every round more rewarding.</p></div>
+        <div class="refer-hero"><div class="refer-orbit orbit-one"></div><div class="refer-orbit orbit-two"></div><div class="refer-person">♧</div><div class="refer-reward"><span>✦</span> +100</div><h2>Bring your squad</h2><p>Earn 100 points for every eligible friend who joins.</p><div class="refer-total"><div><small>YOUR REFERRALS</small><strong id="refCount">0 friends</strong></div><div><small>POINTS EARNED</small><strong id="refEarned">0 ✦</strong></div></div></div>
+        <div class="section-heading"><div><p class="eyebrow">YOUR INVITE LINK</p><h2>Share the fun</h2></div></div>
+        <div class="link-box"><span id="refLink">Open in Telegram to create your link</span><button id="copyLinkBtn" aria-label="Copy referral link">▣</button></div>
+        <button class="primary-btn full-btn" id="shareBtn">INVITE FRIENDS <span>↗</span></button>
+        <div class="notice"><span>✓</span><p>Referral rewards should be granted only after the server verifies a new, eligible Telegram user. Self-referrals and duplicate claims are blocked.</p></div>
+      </section>
+
+      <section class="page" id="page-profile">
+        <div class="profile-hero"><div class="profile-avatar" id="profileAvatar">B</div><div><p class="eyebrow">PLAYER PROFILE</p><h1 id="profileName">Bird Rush Player</h1><p class="muted" id="profileId">Telegram Mini App</p></div><div class="level-badge">LVL 01</div></div>
+        <div class="balance-banner profile-balance"><div><small>TOTAL POINTS</small><strong><span class="coin">✦</span> <span id="profileBalance">0</span></strong></div><div class="banner-symbol">✧</div></div>
+        <div class="section-heading"><div><p class="eyebrow">YOUR ACTIVITY</p><h2>Game stats</h2></div></div>
+        <div class="stats-grid"><div class="stat-card"><small>TOTAL HITS</small><strong id="totalHits">0</strong></div><div class="stat-card"><small>ROUNDS WON</small><strong id="roundsWon">0</strong></div><div class="stat-card"><small>ADS COMPLETED</small><strong id="adsCompleted">0</strong></div><div class="stat-card"><small>FRIENDS INVITED</small><strong id="profileRefs">0</strong></div></div>
+        <div class="section-heading"><div><p class="eyebrow">ACCOUNT</p><h2>Settings</h2></div></div>
+        <button class="settings-row" id="refreshBtn"><span class="settings-icon">↻</span><span><b>Refresh account</b><small>Sync latest balance and stats</small></span><span class="chevron">›</span></button>
+        <button class="settings-row" id="aboutBtn"><span class="settings-icon">ⓘ</span><span><b>About Bird Rush</b><small>Rules, rewards and fair play</small></span><span class="chevron">›</span></button>
+        <p class="disclaimer">Bird Rush is an independent game concept and is not affiliated with or endorsed by bKash.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-nav="home"><span class="nav-symbol">⌂</span><small>Home</small></button>
+      <button class="nav-item" data-nav="tasks"><span class="nav-symbol">▣</span><small>Tasks</small></button>
+      <button class="nav-item" data-nav="refer"><span class="nav-symbol">♧</span><small>Refer</small></button>
+      <button class="nav-item" data-nav="profile"><span class="nav-symbol">◉</span><small>Profile</small></button>
+    </nav>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="modal-backdrop" id="modalBackdrop"><div class="modal"><button class="modal-close" id="modalClose">×</button><div class="modal-mark">✦</div><h2 id="modalTitle">Notice</h2><p id="modalText"></p><button class="primary-btn full-btn" id="modalOk">GOT IT</button></div></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
